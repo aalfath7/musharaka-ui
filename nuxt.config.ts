@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/google-fonts"],
+  modules: ["@nuxtjs/google-fonts", "@pinia/nuxt"],
   googleFonts: {
     families: {
       Rubik: [400, 700],

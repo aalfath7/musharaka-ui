@@ -8,8 +8,16 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "~/stores/auth";
+
 useHead({
   title: "Home | Musharaka",
   meta: [{ name: "description", content: "Halaman tentang kami" }],
 });
+
+definePageMeta({
+  middleware: "auth",
+});
+
+const authStore = useAuthStore();
 </script>

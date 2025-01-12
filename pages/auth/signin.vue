@@ -1,6 +1,6 @@
 <template>
   <div class="w-96">
-    <NuxtLink to="/" class="inline-block mb-5">
+    <NuxtLink v-if="authStore.user" to="/" class="inline-block mb-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -16,7 +16,7 @@
         />
       </svg>
     </NuxtLink>
-    <form>
+    <form @submit.prevent="handleLogin">
       <h1 class="font-bold text-3xl md:text-4xl mb-5">Sign In</h1>
       <div class="mb-5">
         <label
@@ -25,6 +25,7 @@
           >Your email</label
         >
         <input
+          v-model="form.email"
           type="email"
           id="email"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -39,13 +40,14 @@
           >Your password</label
         >
         <input
+          v-model="form.password"
           type="password"
           id="password"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
         />
       </div>
-      <div class="flex items-start mb-5">
+      <!-- <div class="flex items-start mb-5">
         <div class="flex items-center h-5">
           <input
             id="remember"
@@ -60,7 +62,7 @@
           class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >Remember me</label
         >
-      </div>
+      </div> -->
       <button
         type="submit"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
@@ -78,7 +80,32 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "~/stores/auth";
+
 definePageMeta({
   layout: "auth",
 });
+
+const authStore = useAuthStore();
+
+interface LoginForm {
+  email: string;
+  password: string;
+}
+
+const form = ref<LoginForm>({
+  email: "",
+  password: "",
+});
+
+const errorMessage = ref<string>("");
+
+const handleLogin = async (): Promise<void> => {
+  try {
+    await authStore.login(form.value);
+    navigateTo("/");
+  } catch (error) {
+    errorMessage.value = (error as Error).message;
+  }
+};
 </script>
