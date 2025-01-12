@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const secretKey = "qwerty"; // Ganti dengan secret key yang lebih kuat
 
   // Contoh validasi sederhana
-  if (email === "email@gmail.com" && password === "password") {
+  if (email === "email@gmail.com" && password === "admin123") {
     // Data user
     const user = {
       id: 1,
