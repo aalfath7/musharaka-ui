@@ -14,7 +14,7 @@
       </div>
     </div>
     <div>
-      <h2 class="font-bold text-xl md:text-4xl text-center">Why Us?</h2>
+      <h2 class="font-bold text-3xl md:text-4xl text-center">Why Us?</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 grid-5">
         <div
           v-for="item in why"
@@ -34,8 +34,8 @@
               :d="item.icon"
             />
           </svg>
-          <h3 class="font-bold text-2xl">{{ item.content }}</h3>
-          <p>{{ item.desc }}</p>
+          <h3 class="font-bold text-2xl text-center">{{ item.content }}</h3>
+          <p class="text-center">{{ item.desc }}</p>
         </div>
       </div>
     </div>

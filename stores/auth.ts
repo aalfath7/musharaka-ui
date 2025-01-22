@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useLoadingStore } from "./loading";
 
 type AuthResponse = {
   user: { id: number; name: string; email: string };
@@ -12,6 +13,9 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     async login(credentials: { email: string; password: string }) {
+      const loadingStore = useLoadingStore();
+      loadingStore.setLoading(true);
+
       try {
         // send request login to API
         const response = await $fetch<AuthResponse>("/api/auth/login", {
@@ -32,6 +36,10 @@ export const useAuthStore = defineStore("auth", {
         } else {
           throw new Error("login failed: Unknown error");
         }
+      } finally {
+        console.log(loadingStore.isLoading);
+        loadingStore.setLoading(false);
+        console.log(loadingStore.isLoading);
       }
     },
     logout() {

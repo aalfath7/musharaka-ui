@@ -12,7 +12,7 @@
     <div class="px-5 pb-5">
       <a href="#">
         <h5
-          class="capitalize text-xl md:text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
+          class="capitalize text-xl md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
         >
           {{ item.name }}
         </h5>
@@ -81,7 +81,8 @@
         >
       </div>
       <div class="flex items-center justify-between">
-        <span class="text-3xl font-bold text-gray-900 dark:text-white"
+        <span
+          class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white"
           >$ {{ item.price }}</span
         >
         <a
